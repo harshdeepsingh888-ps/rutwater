@@ -205,6 +205,60 @@ h1{margin:0;font:900 clamp(64px,13vw,132px)/.84 var(--f-display);letter-spacing:
   .rc-stats div{grid-template-columns:70px minmax(0,1fr) 58px}
 }
 @media (max-height:700px) and (min-width:900px){ .menu .lede{display:none} .menu h1{font-size:48px} .mapt{min-height:58px} .seg.maps .mapt i{display:none} }
+
+/* ---- phones: landscape play, HUD kept to the edges so the rig in the middle stays visible ---- */
+#rotate{position:fixed;inset:0;z-index:60;display:none;place-items:center;text-align:center;padding:24px var(--gut-r) 24px var(--gut-l);background:var(--pine)}
+#rotate .ph{width:46px;height:78px;margin:0 auto 22px;border:3px solid var(--bone);border-radius:9px;animation:rot 2.2s ease-in-out infinite}
+@keyframes rot{0%,20%{transform:rotate(0)}55%,100%{transform:rotate(-90deg)}}
+#rotate b{display:block;font:900 34px/1 var(--f-display)}
+#rotate p{margin:10px auto 18px;max-width:30ch;font:500 15px/1.4 var(--f-body);color:var(--dim)}
+@media (orientation:portrait){ body.touch.ingame:not(.portrait-ok) #rotate{display:grid} }
+@media (prefers-reduced-motion:reduce){ #rotate .ph{animation:none;transform:rotate(-90deg)} }
+.toast{top:calc(14px + env(safe-area-inset-top,0px))}
+.toast b{font-size:clamp(30px,5.2vw,58px)}
+.toast span{margin-top:5px;font-size:12px}
+body.touch .tl{top:calc(8px + env(safe-area-inset-top,0px));gap:2px}
+body.touch .timer{font-size:24px}
+body.touch .sub,body.touch .split{font-size:10.5px}
+body.touch #map{width:92px;height:92px}
+body.touch .tr{top:calc(8px + env(safe-area-inset-top,0px));gap:8px}
+body.touch .roundbtn{width:38px;height:38px}
+body.touch .hint{top:calc(64px + env(safe-area-inset-top,0px));font-size:12.5px}
+body.touch .toast b{font-size:clamp(24px,4.4vw,38px)}
+body.touch .toast span{font-size:10.5px;letter-spacing:.18em}
+@media (orientation:landscape){
+  body.touch .bc{bottom:calc(10px + env(safe-area-inset-bottom,0px));gap:3px}
+  body.touch .gauge b{font-size:28px}
+  body.touch .gear{font-size:13px}
+  body.touch .chips{max-width:min(40vw,330px);gap:4px;min-height:0}
+  body.touch .chip{font-size:9px;padding:4px 5px 3px;letter-spacing:.12em}
+  body.touch .dmgc{left:calc(100% + 10px);width:28px;height:48px}
+  #touch{padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+  .tg{gap:8px}
+  .tg button{width:76px;height:76px;border-radius:16px;font-size:22px}
+  .tg .txt{width:70px;font-size:12px}
+  .tg button[data-k="gas"]{height:104px}
+  .tmini{bottom:calc(10px + 104px + 10px + env(safe-area-inset-bottom,0px));gap:6px}
+  .tmini button{height:32px;padding:0 9px;font-size:10px;border-radius:8px}
+}
+@media (orientation:portrait){ body.touch .bc{bottom:calc(158px + env(safe-area-inset-bottom,0px))} }
+/* phone held sideways: settings on the left, compact rig card on the right */
+@media (orientation:landscape) and (max-height:540px) and (min-width:600px){
+  .overlay.menu{align-items:flex-start;padding-top:calc(10px + env(safe-area-inset-top,0px));padding-bottom:10px;background:linear-gradient(90deg,var(--scrim) 0%,rgba(9,16,12,.7) 40%,rgba(9,16,12,0) 60%)}
+  .menu .mpanel{max-width:min(42vw,400px);margin:0;padding-bottom:0;gap:10px}
+  .brand{order:0;gap:10px}.brand .blaze{width:14px;height:14px}
+  .menu h1{font-size:34px}.brandsub{font-size:9.5px;margin-top:3px}
+  .menu .lede,.menu .note{display:none}
+  .mapt{min-height:44px;padding:7px 10px 6px}.mapt svg{width:34px;height:22px}.mapt b{font-size:13.5px}.seg.maps .mapt i{display:none}
+  .seg.pills .opt{padding:6px 8px 5px}.seg.pills .opt b{font-size:13px}
+  .rigcard{order:0;position:fixed;right:var(--gut-r);top:calc(10px + env(safe-area-inset-top,0px));bottom:auto;width:min(38vw,330px);max-height:calc(100vh - 20px);overflow:auto;padding:10px 12px;gap:7px;background:rgba(9,16,12,.84);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .rc-title h2{font-size:24px}.rc-title p{display:none}.arrow{width:32px;height:32px;font-size:20px}
+  .rc-stats{gap:3px}.rc-stats div{grid-template-columns:62px minmax(0,1fr) 54px;gap:6px}.rc-stats dt{font-size:9px}.rc-stats span{font-size:10.5px}
+  .rigchips{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}.rigchips .opt{padding:4px 4px 3px}.rigchips .opt b{font-size:10.5px}
+  .rigcard .actions{position:static;padding:0;background:none}
+  .rigcard .btn{padding:9px 12px 8px;font-size:12px}.rigcard .btn.primary{font-size:13.5px;padding-block:10px 9px}
+  .rigcard .best{font-size:10.5px}
+}
 </style>
 
 <canvas id="c" aria-label="Rutwater driving view" tabindex="-1"></canvas>
@@ -236,6 +290,7 @@ h1{margin:0;font:900 clamp(64px,13vw,132px)/.84 var(--f-display);letter-spacing:
   <div class="tmini"><button id="tWinch">WINCH</button><button id="tLow">LOW</button><button id="tReset">RESET</button><button id="tCam">CAM</button></div>
 </div>
 
+<div id="rotate" role="dialog" aria-label="Rotate your phone"><div><div class="ph" aria-hidden="true"></div><b>TURN YOUR PHONE</b><p>Rutwater plays in landscape. Hold the phone sideways to drive.</p><button class="btn" id="portraitOk">Play upright anyway</button></div></div>
 <section id="menu" class="overlay menu" hidden>
   <div class="panel mpanel">
     <header class="brand"><div class="blaze" aria-hidden="true"></div><div><h1>RUTWATER</h1><div class="brandsub" id="brandSub">Offroad expeditions</div></div></header>
@@ -795,7 +850,7 @@ Object.assign(RIGS,{
     wheels:[[-0.92,-0.25,-1.55,0.42,1,1],[0.92,-0.25,-1.55,0.42,1,1],[-0.92,-0.25,1.5,0.42,0,1],[0.92,-0.25,1.5,0.42,0,1]],
     hull:[[-0.75,-0.42,-2.2],[0.75,-0.42,-2.2],[-0.75,-0.42,2.2],[0.75,-0.42,2.2],[0,-0.45,0],[-0.62,1.17,-0.6],[0.62,1.17,-0.6],[-0.62,1.18,1.25],[0.62,1.18,1.25],[0,1.2,0.3]],
     cams:{cockpit:[-0.33,0.55,-0.1,-0.1,0.4,-30],hood:[0,0.45,-1.5,0,0.25,-30],bumper:[0,-0.1,-2.4,0,-0.1,-30],wheel:[-1.65,0.0,-0.4,-1.2,-0.25,-30]}},
-  army:{name:'Tusker 6×6',blurb:'Camo 6×6 cargo truck',m:8000,dims:[2.45,3.0,7.2],rest:0.42,k:87200,c:10000,P:190000,F:34000,lowF:60000,topH:22,topL:9,brakeF:130000,steerMax:0.52,winchF:50000,camDist:12,camH:4.2,
+  army:{name:'Tusker 6×6',blurb:'Camo 6×6 cargo truck, big diesel',m:8000,dims:[2.45,3.0,7.2],rest:0.42,k:87200,c:10000,P:340000,F:50000,lowF:84000,topH:26,topL:10,brakeF:130000,steerMax:0.52,winchF:50000,camDist:12,camH:4.2,
     tyreW:0.42,axleR:0.1,shockR:0.07,shockIn:0.4,spawnY:0.35,paint:0x4f5a33,build:buildArmy6,rim:{color:0x3f4630,spokes:6,size:0.55,agg:true},
     wheels:[[-1.02,-0.45,-2.4,0.58,1,1],[1.02,-0.45,-2.4,0.58,1,1],[-1.02,-0.45,1.6,0.58,0,1],[1.02,-0.45,1.6,0.58,0,1],[-1.02,-0.45,2.9,0.58,0,1],[1.02,-0.45,2.9,0.58,0,1]],
     hull:[[-1.1,-0.55,-3.5],[1.1,-0.55,-3.5],[-1.2,-0.5,3.5],[1.2,-0.5,3.5],[0,-0.55,0],[-1.15,1.85,-1.5],[1.15,1.85,-1.5],[-1.2,1.7,3.4],[1.2,1.7,3.4],[0,1.9,1.0]],
@@ -1835,8 +1890,10 @@ bigCv.addEventListener('pointerdown',e=>{if(G.mode!=='free')return;const r=bigCv
     G.state=G.prevState==='paused'?'play':G.prevState;$('mapView').hidden=true;showOnly(null);G.state='play';Snd.resume();setTouch();toast(best.name,'Fast travel');}});
 
 function menuDrive(){const T=TRAILS[(Math.random()*TRAILS.length)|0];placeAtIndex(T.start+Math.round((HUBS[T.a].r+8)/T.ds),1);}
+function goLandscape(){if(!G.touch)return;try{const d=document.documentElement,fs=d.requestFullscreen||d.webkitRequestFullscreen;const lock=()=>{try{const p=screen.orientation&&screen.orientation.lock&&screen.orientation.lock('landscape');if(p&&p.catch)p.catch(()=>{});}catch(e){}};
+  if(fs&&!document.fullscreenElement){const p=fs.call(d,{navigationUI:'hide'});if(p&&p.then)p.then(lock).catch(()=>{});else lock();}else lock();}catch(e){}}
 function startRun(){
-  if(G.state==='play')return;Snd.init();Snd.resume();
+  if(G.state==='play')return;goLandscape();document.body.classList.add('ingame');Snd.init();Snd.resume();
   G.mode=SEL.mode;document.body.classList.toggle('free',G.mode==='free');document.body.classList.toggle('trail',G.mode==='trail');
   if(rigName!==SEL.rig)setRig(SEL.rig);if(MAP.seasons&&SEASON!==SEL.season){applySeason(SEL.season);drawMapBg();}
   repairRig(true);G.state='play';G.runT=0;G.penalty=0;G.recovers=0;G.odo=0;G.top=0;G.mudLevel=0;G.low=false;G.stuckT=0;G.run=null;arches.forEach(a=>a.g.visible=false);
@@ -1848,7 +1905,7 @@ function startRun(){
   showOnly(null);ui.hud.hidden=false;setTouch();for(const k in input)input[k]=false;canvas.focus({preventScroll:true});}
 function pause(){if(G.state!=='play')return;G.state='paused';showOnly('pause');Snd.suspend();setTouch();setTimeout(()=>$('resumeBtn').focus(),0);}
 function resume(){if(G.state!=='paused')return;G.state='play';showOnly(null);Snd.resume();lastT=performance.now();setTouch();canvas.focus({preventScroll:true});}
-function toMenu(){G.state='menu';G.run=null;arches.forEach(a=>a.g.visible=false);ui.hud.hidden=true;$('mapView').hidden=true;showOnly('menu');setTouch();releaseWinch();if(rigName!==SEL.rig)setRig(SEL.rig);menuDrive();refreshMenu();Snd.resume();}
+function toMenu(){document.body.classList.remove('ingame');G.state='menu';G.run=null;arches.forEach(a=>a.g.visible=false);ui.hud.hidden=true;$('mapView').hidden=true;showOnly('menu');setTouch();releaseWinch();if(rigName!==SEL.rig)setRig(SEL.rig);menuDrive();refreshMenu();Snd.resume();}
 function finish(){
   G.state='over';setTouch();releaseWinch();const T=G.run.trail,total=G.runT+G.penalty,key=bestKey(T.id),prev=bestTimes[key],isBest=!prev||total<prev;if(isBest){bestTimes[key]=Math.round(total);store.set(RUN_BEST_KEY,bestTimes);}
   $('overEyebrow').textContent=`${T.name} · ${RIGS[rigName].name} · ${SEASON==='snow'?'first snow':'autumn rain'}`;$('overTime').textContent=fmtT(total);$('newBest').hidden=!isBest;
@@ -1880,6 +1937,7 @@ addEventListener('blur',()=>{for(const k in input)input[k]=false;for(const k in 
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&G.state==='play')pause();});
 G.touch=matchMedia('(pointer: coarse)').matches;
 addEventListener('touchstart',()=>{if(!G.touch){G.touch=true;setTouch();}},{passive:true});
+$('portraitOk').onclick=()=>{document.body.classList.add('portrait-ok');G.vo=null;};
 document.querySelectorAll('#touch .tg button').forEach(b=>{const k=b.dataset.k,ids=new Set();
   b.addEventListener('pointerdown',e=>{e.preventDefault();ids.add(e.pointerId);try{b.setPointerCapture(e.pointerId);}catch(_){}touchIn[k]=true;b.classList.add('on');});
   const off=e=>{ids.delete(e.pointerId);if(!ids.size){touchIn[k]=false;b.classList.remove('on');}};
@@ -1917,7 +1975,7 @@ function repairRig(silent){const sv=body.p.clone();setRig(rigName);resetDamage()
 function update(dt){
   G.time+=dt;pollPad();
   const playing=G.state==='play',menu=G.state==='menu';
-  {const vw=innerWidth,vh=innerHeight,want=menu?vw+'x'+vh:'';if(want!==G.vo){G.vo=want;if(want){if(vw>=900)camera.setViewOffset(vw,vh,-vw*0.13,vh*0.2,vw,vh);else if(vw<=640)camera.setViewOffset(vw,vh,0,vh*0.3,vw,vh);else camera.clearViewOffset();}else camera.clearViewOffset();}}
+  {const vw=innerWidth,vh=innerHeight,land=vw>vh,o=menu?(vw>=900?[-0.13,0.2]:land&&vw>=600&&vh<=540?[0.02,0.06]:vw<=640?[0,0.3]:null):(playing&&G.touch?(land?[0,0.1]:[0,0.08]):null),want=o?vw+'x'+vh+o:'';if(want!==G.vo){G.vo=want;if(o)camera.setViewOffset(vw,vh,o[0]*vw,o[1]*vh,vw,vh);else camera.clearViewOffset();}}
   let steerT=0,gas=0,brk=0,hand=0;
   if(playing){
     const kd=(input.right||touchIn.right?1:0)-(input.left||touchIn.left?1:0);
